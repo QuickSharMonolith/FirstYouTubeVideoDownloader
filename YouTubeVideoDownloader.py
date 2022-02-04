@@ -5,7 +5,7 @@ import os
 import json
 init(autoreset=True)
 
-#Скачивание видео
+#Video download
 def download(url):
     with open(".\data\config.json", "r") as file:
             config = json.load(file)
@@ -14,10 +14,10 @@ def download(url):
     stream = video_obj.streams.get_highest_resolution()
     stream.download(folder)
 
-    print(Fore.GREEN + "Видео успешно скачано в папку: " + folder)
+    print(Fore.GREEN + "The video was successfully downloaded to the folder: " + folder)
     os.system("pause")
 
-#Создание файла config.json
+#Creating a config.json file
 def configSetup(folder):
     data = """
     {
@@ -27,12 +27,12 @@ def configSetup(folder):
         config.write(data)
     configWrite(folder)
 
-#Создание папки data
+#Creating a data folder
 def FolderData():
     os.makedirs('.\data')
     Initialsetup()
 
-#Записывает в конфиг путь к папке загрузки
+#Writes the path to the download folder to the config
 def configWrite(folder):
     with open('.\data\config.json') as f:
         cfg = json.load(f)
@@ -41,14 +41,14 @@ def configWrite(folder):
         json.dump(cfg, f)
     main()
     
-#Выполняется при первом запуске программы
+#Executed when the program is first launched
 def Initialsetup():
-    print(Fore.CYAN + 'Укажите папку для загрузки видео.')
+    print(Fore.CYAN + 'Specify the folder to download the video.')
     Dfolder = input()
     print(Fore.CYAN + "-----------------------------------------------")
     configSetup(Dfolder)
     
-#Стартовая команда
+#Main function
 def main():
     if os.path.exists('.\data') == False:
         FolderData()
@@ -56,7 +56,7 @@ def main():
         if os.path.exists('.\data\config.json') == False:
             Initialsetup()
         else:
-            print(Fore.CYAN + "Укажите ссылку на видео.")
+            print(Fore.CYAN + "Provide a link to the video.")
             video_url = input()
             download(video_url)
 
